@@ -45,6 +45,10 @@ public class PluginHelper {
 	        target.setValue("${java.target.version}");
 	        configuration.addChild(target);
 
+            Xpp3Dom compilerArgument = new Xpp3Dom("compilerArgument");
+            compilerArgument.setValue("-parameters");
+            configuration.addChild(compilerArgument);
+
 	        pluginCompile.setConfiguration(configuration);
 	        return pluginCompile;
 	    }
