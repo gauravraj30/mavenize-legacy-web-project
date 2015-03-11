@@ -16,7 +16,7 @@ import java.io.*;
  * @since 07-Oct-2014
  */
 public class Mavenize {
-    private static final String pomFileName = "pom-test.xml";
+    private static final String pomFileName = "pom.xml";
     public static BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 
     static Model model = new Model();
