@@ -7,7 +7,15 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>Mavenize Legacy Web Project</name>
+    
+    <properties>
+        <!-- Timestamp of build  -->
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>
+        <!--<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>-->
+    </properties>
     <build>
+        <finalName>${project.artifactId}_${project.version}_${timestamp}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -22,6 +30,12 @@
                         </manifest>
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
+                            <!-- non mi valorizza la branch :-(
+                            in nessuno dei 2 casi sotto viene valorizzato anche se nel log
+                            di esecuzione vedo che la determina correttamente -->
+                            <Branch>${buildScmBranch}</Branch>
+                            <Branch2> ${SCMBranch}</Branch2>
+                            <TimeStamp>${timestamp}</TimeStamp>
                         </manifestEntries>
                     </archive>
                 </configuration>

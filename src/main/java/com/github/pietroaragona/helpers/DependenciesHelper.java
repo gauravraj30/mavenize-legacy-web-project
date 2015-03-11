@@ -10,6 +10,9 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 
+/**
+ * @author Pietro Aragona
+ */
 public class DependenciesHelper {
 
 	public static void run(Model model, Build build, String libDirRelativePath, String libDir) {
