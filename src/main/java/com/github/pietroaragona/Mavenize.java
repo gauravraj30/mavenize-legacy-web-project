@@ -1,8 +1,6 @@
 package com.github.pietroaragona;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 import org.apache.maven.model.Build;
@@ -21,7 +19,8 @@ import com.github.pietroaragona.helpers.PropertyHelper;
 * @since 07-Oct-2014
 */
 public class Mavenize {
-	public static Scanner sc;
+    private static final String pomFileName = "pom-test.xml";
+    public static BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 	
 	static Model model = new Model();
 	
@@ -32,18 +31,23 @@ public class Mavenize {
     static String libDirRelativePath;
 
 	private static String finalName;
-	
-    static{
-    	sc = new Scanner(System.in);
-    }
-    
-	public static void main(String[] args) {
+
+
+    public static void main(String[] args) {
 		//TODO aggiungere gestione  context path /archibus
-		readLegacyProjectInfo();
-		printLegacyProjectInfo();
-		
-		CoordinatesHelper.run(model);
-		PropertyHelper.run(model, webContentDir, projectName, finalName);
+        try {
+            readLegacyProjectInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        printLegacyProjectInfo();
+
+        try {
+            CoordinatesHelper.run(model);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PropertyHelper.run(model, webContentDir, projectName, finalName);
 		
 	       Build build = new Build();
 	        build.setFinalName("${final.name}");
@@ -51,9 +55,8 @@ public class Mavenize {
 	        
 	        PluginHelper.run(model, build);
 	        DependenciesHelper.run(model, build, libDirRelativePath, libDir);
-	        
-		sc.close();
-		String outputPomFile = projectBaseDir+"/"+"pom.xml";
+
+		String outputPomFile = projectBaseDir+"/"+ pomFileName;
 		 FileWriter w = null;
 		try {
 			w = new FileWriter(new File(outputPomFile));
@@ -78,14 +81,14 @@ public class Mavenize {
 		System.out.println();
 	}
 
-	private static void readLegacyProjectInfo() {
+	private static void readLegacyProjectInfo() throws IOException {
 		
 		System.out.print("Project Name: ");
-		projectName = sc.nextLine();
+		projectName = bufferRead.readLine();
 		System.out.print("Path on File system: ");
-		projectBaseDir = sc.next();
+		projectBaseDir = bufferRead.readLine();
 		System.out.print("WebContent dir: ");
-		webContentDir = sc.next();
+		webContentDir = bufferRead.readLine();
 		libDir = projectBaseDir + "/" + webContentDir + "/" + "WEB-INF" + "/" + "lib";
 		if(!new File(libDir).exists()){
 			System.out.println("Path [" + libDir+"] not exists!\nExit...");
@@ -94,7 +97,7 @@ public class Mavenize {
 		libDirRelativePath = "${project.basedir}" + "/" + webContentDir + "/" + "WEB-INF" + "/" + "lib";
 		
 		System.out.println("Final name: ");
-		finalName = sc.next();
+		finalName = bufferRead.readLine();
 	}
 
 }

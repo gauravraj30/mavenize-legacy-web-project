@@ -5,6 +5,9 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
+/**
+ * @author Pietro Aragona
+ */
 public class PluginHelper {
 
 	public static void run(Model model, Build build) {
