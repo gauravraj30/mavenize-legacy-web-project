@@ -9,13 +9,34 @@
     <name>Mavenize Legacy Web Project</name>
     
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <!-- Timestamp of build  -->
         <timestamp>${maven.build.timestamp}</timestamp>
         <!--<maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>-->
         <maven.build.timestamp.format>yyyy-MMM-dd HH:mm</maven.build.timestamp.format>
+        
+        <!-- main class to execute -->
+        <main.class>com.github.pietroaragona.Mavenize</main.class>
     </properties>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                   </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -25,7 +46,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.github.pietroaragona.Mavenize</mainClass>
+                            <mainClass>${main.class}</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
@@ -43,7 +64,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.github.pietroaragona.Mavenize</mainClass>
+                            <mainClass>${main.class}</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
