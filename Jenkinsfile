@@ -1,6 +1,6 @@
 
 node {
-    docker.image('maven:3-alpine').inside {
+//    docker.image('maven:3-alpine').inside {
         stage('Build') {
             echo 'Building...'
             sh 'mvn clean package'
@@ -11,5 +11,5 @@ node {
         stage('Deploy') {
             echo 'Deployng'
         }
-    }
+//    }
 }
