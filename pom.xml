@@ -3,7 +3,7 @@
 
     <groupId>com.github.pietroaragona</groupId>
     <artifactId>mavenize-legacy-web-project</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <name>Mavenize Legacy Web Project</name>
     
