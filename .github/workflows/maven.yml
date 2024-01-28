@@ -45,9 +45,6 @@ jobs:
     - name: Install with Maven
       run: mvn install
 
-    - name: Deploy with Maven
-      run: mvn deploy
-
     - name: Clean with Maven
       run: mvn clean
 
