@@ -48,11 +48,5 @@ jobs:
     - name: Clean with Maven
       run: mvn clean
 
-    - name: Generate site with Maven
-      run: mvn site
-
-    - name: Deploy site with Maven
-      run: mvn site-deploy
-
     - name: Verify with Maven
       run: mvn verify
