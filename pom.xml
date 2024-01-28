@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.pietroaragona</groupId>
@@ -12,14 +14,30 @@
 
         <!-- Timestamp of build  -->
         <timestamp>${maven.build.timestamp}</timestamp>
-        <!--<maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>-->
         <maven.build.timestamp.format>yyyy-MMM-dd HH:mm</maven.build.timestamp.format>
         
         <!-- main class to execute -->
         <main.class>com.github.pietroaragona.Mavenize</main.class>
+        
+        <!-- Define buildNumber and scmBranch properties -->
+        <buildNumber>1</buildNumber>
+        <scmBranch>main</scmBranch>
     </properties>
+    
     <build>
         <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>7</source> <!-- Update source compatibility to Java 7 -->
+                    <target>7</target> <!-- Update target compatibility to Java 7 -->
+                </configuration>
+            </plugin>
+            
+            <!-- Maven Exec Plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -29,17 +47,18 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
-                   </execution>
+                    </execution>
                 </executions>
                 <configuration>
                     <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
             
+            <!-- Maven Jar Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -56,8 +75,10 @@
                 </configuration>
             </plugin>
       
+            <!-- Maven Assembly Plugin -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -86,6 +107,7 @@
                 </executions>
             </plugin>
             
+            <!-- Build Number Maven Plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
@@ -102,16 +124,18 @@
                     <doCheck>false</doCheck>
                     <doUpdate>false</doUpdate>
                 </configuration>
-            </plugin>            
-
-        <plugin>
-            <groupId>external.atlassian.jgitflow</groupId>
-            <artifactId>jgitflow-maven-plugin</artifactId>
-            <version>1.0-m5.1</version>
-            <configuration>
-                <!-- see goals wiki page for configuration options -->
-            </configuration>
-	</plugin>
+            </plugin>
+            
+            <!-- JGitFlow Maven Plugin -->
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <!-- see goals wiki page for configuration options -->
+                </configuration>
+            </plugin>
+            
         </plugins>
     </build>
 
