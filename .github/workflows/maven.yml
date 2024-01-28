@@ -35,3 +35,27 @@ jobs:
     - name: Display Maven Compilation Output
       if: ${{ failure() }}
       run: cat target/maven-compiler-plugin.log
+
+    - name: Test with Maven
+      run: mvn test
+
+    - name: Package with Maven
+      run: mvn package
+
+    - name: Install with Maven
+      run: mvn install
+
+    - name: Deploy with Maven
+      run: mvn deploy
+
+    - name: Clean with Maven
+      run: mvn clean
+
+    - name: Generate site with Maven
+      run: mvn site
+
+    - name: Deploy site with Maven
+      run: mvn site-deploy
+
+    - name: Verify with Maven
+      run: mvn verify
